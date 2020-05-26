@@ -1,16 +1,16 @@
 package com.imooc.miaosha.domain;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (MiaoshaUser)实体类
  *
  * @author makejava
- * @since 2020-05-04 18:32:52
+ * @since 2020-05-25 18:43:07
  */
 public class MiaoshaUser implements Serializable {
-    private static final long serialVersionUID = -36801962986448871L;
+    private static final long serialVersionUID = 247125310352069380L;
     /**
     * 用户ID，手机号码
     */
