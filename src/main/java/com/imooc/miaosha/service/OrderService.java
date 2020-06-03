@@ -27,4 +27,11 @@ public interface OrderService {
      * @return
      */
     OrderInfo createOrder(MiaoshaUser user, GoodsVo goods);
+
+    /**
+     * 获取订单详情
+     * @param orderId
+     * @return
+     */
+    OrderInfo getOrderById(long orderId);
 }

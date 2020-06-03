@@ -36,9 +36,9 @@ public class UserController {
 
     @RequestMapping("doLogin")
     @ResponseBody
-    public Result<Boolean> doLogin(HttpServletResponse response, @Valid LoginVo loginVo){
-        userService.doLogin(response,loginVo);
-        return Result.success(true);
+    public Result<String> doLogin(HttpServletResponse response, @Valid LoginVo loginVo){
+        String token = userService.doLogin(response, loginVo);
+        return Result.success(token);
     }
 
 

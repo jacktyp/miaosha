@@ -6,6 +6,7 @@ import com.imooc.miaosha.service.OrderService;
 import com.imooc.miaosha.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
+    @Transactional
     public void reduceStock(GoodsVo goods) {
         //商品库存减一
         goodsDao.reduceStock(goods.getId());

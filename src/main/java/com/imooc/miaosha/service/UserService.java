@@ -17,7 +17,7 @@ public interface UserService {
      * @param response
      * @param loginVo   参数
      */
-    void doLogin(HttpServletResponse response, LoginVo loginVo);
+    String doLogin(HttpServletResponse response, LoginVo loginVo);
 
     /**
      * 根据token获取redis中用户，并刷新
