@@ -1,6 +1,7 @@
 package com.imooc.miaosha.service.impl;
 
 import com.imooc.miaosha.dao.GoodsDao;
+import com.imooc.miaosha.domain.MiaoshaGoods;
 import com.imooc.miaosha.service.GoodService;
 import com.imooc.miaosha.service.OrderService;
 import com.imooc.miaosha.vo.GoodsVo;
@@ -31,10 +32,17 @@ public class GoodServiceImpl implements GoodService {
         return goodsDao.getGoodsVoByGoodsId(goodsId);
     }
 
+    /**
+     * 减库存 -1
+     * @param goods
+     * @return
+     */
     @Override
     @Transactional
-    public void reduceStock(GoodsVo goods) {
-        //商品库存减一
-        goodsDao.reduceStock(goods.getId());
+    public Boolean reduceStock(GoodsVo goods) {
+        MiaoshaGoods g = new MiaoshaGoods();
+        g.setGoodsId(goods.getId());
+        int ret = goodsDao.reduceStock(g.getGoodsId());
+        return ret > 0;
     }
 }

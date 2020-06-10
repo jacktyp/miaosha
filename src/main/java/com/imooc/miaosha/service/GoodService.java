@@ -28,5 +28,5 @@ public interface GoodService {
      * 秒杀减库存
      * @param goods
      */
-    void reduceStock(GoodsVo goods);
+    Boolean reduceStock(GoodsVo goods);
 }
