@@ -4,6 +4,8 @@ import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.domain.OrderInfo;
 import com.imooc.miaosha.vo.GoodsVo;
 
+import java.awt.image.BufferedImage;
+
 /**
  * @ClassName MiaoshaService
  * @Description TODO
@@ -41,4 +43,21 @@ public interface MiaoshaService {
      * @return
      */
     boolean checkMiaoShaPath(String path,Long userId,Long goodsId);
+
+    /**
+     * 秒杀验证码
+     * @param user
+     * @param goodsId
+     * @return
+     */
+    BufferedImage createVerifyCode(MiaoshaUser user, long goodsId);
+
+    /**
+     * 验证秒杀验证码
+     * @param user
+     * @param goodsId
+     * @param verifyCode
+     * @return
+     */
+    boolean checkVerifyCode(MiaoshaUser user, long goodsId, int verifyCode);
 }

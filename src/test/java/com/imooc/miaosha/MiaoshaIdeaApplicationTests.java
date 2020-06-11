@@ -12,9 +12,9 @@ class MiaoshaIdeaApplicationTests {
 	@Autowired
 	RedisService redisService;
 
+
 	@Test
 	void contextLoads() {
-		//redisService.set(,"111","haha");
 	}
 
 }
