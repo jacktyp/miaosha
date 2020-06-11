@@ -1,5 +1,6 @@
 package com.imooc.miaosha.controller;
 
+import com.imooc.miaosha.access.AccessLimit;
 import com.imooc.miaosha.domain.MiaoshaOrder;
 import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.domain.OrderInfo;
@@ -208,11 +209,12 @@ public class MiaoShaController implements InitializingBean {
         return Result.success(result);
     }
 
+    @AccessLimit(seconds=5, maxCount=5, needLogin=true)
     @RequestMapping(value="/getMiaoShaPath", method=RequestMethod.GET)
     @ResponseBody
     public Result<String> getMiaoShaPath(Model model,MiaoshaUser user,
                                       @RequestParam("goodsId")long goodsId,
-                                         @RequestParam(value="verifyCode", defaultValue="0")int verifyCode) {
+                                         @RequestParam(value="verifyCode")int verifyCode) {
         model.addAttribute("user", user);
         if(user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
