@@ -22,10 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -151,13 +148,19 @@ public class MiaoShaController implements InitializingBean {
      * @param goodsId
      * @return
      */
-    @RequestMapping(value = "/do_miaosha", method= RequestMethod.POST)
+    @RequestMapping(value = "/{path}/do_miaosha", method= RequestMethod.POST)
     @ResponseBody
-    public Result<Integer> do_miaosha(Model model, MiaoshaUser user, @RequestParam("goodsId")long goodsId) {
-        OrderDetailVo orderDetailVo = new OrderDetailVo();
+    public Result<Integer> do_miaosha(Model model, MiaoshaUser user, @RequestParam("goodsId")long goodsId,
+                                      @PathVariable("path") String path) {
+        //OrderDetailVo orderDetailVo = new OrderDetailVo();
         model.addAttribute("user", user);
         if(user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        //验证秒杀地址
+        boolean check = miaoshaService.checkMiaoShaPath(path,user.getId(),goodsId);
+        if (!check){
+            return Result.error(CodeMsg.FEIFAMIAOSHA_ERROR);
         }
         //如果时true，库存不足
         Boolean over = localMap.get(goodsId);
@@ -198,8 +201,18 @@ public class MiaoShaController implements InitializingBean {
             return Result.error(CodeMsg.SESSION_ERROR);
         }
         long result = miaoshaService.getMiaoshaResult(user.getId(), goodsId);
-
         return Result.success(result);
     }
 
+    @RequestMapping(value="/getMiaoShaPath", method=RequestMethod.GET)
+    @ResponseBody
+    public Result<String> getMiaoShaPath(Model model,MiaoshaUser user,
+                                      @RequestParam("goodsId")long goodsId) {
+        model.addAttribute("user", user);
+        if(user == null) {
+            return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        String path = miaoshaService.createMiaoShaPath(user,goodsId);
+        return Result.success(path);
+    }
 }

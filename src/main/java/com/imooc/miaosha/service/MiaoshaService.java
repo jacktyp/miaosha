@@ -26,4 +26,19 @@ public interface MiaoshaService {
      * @return
      */
     long getMiaoshaResult(Long uid, long goodsId);
+
+    /**
+     * 生成秒杀地址
+     * @param user
+     * @param goodsId
+     * @return
+     */
+    String createMiaoShaPath(MiaoshaUser user, long goodsId);
+
+    /**
+     * 验证秒杀地址
+     * @param path
+     * @return
+     */
+    boolean checkMiaoShaPath(String path,Long userId,Long goodsId);
 }
