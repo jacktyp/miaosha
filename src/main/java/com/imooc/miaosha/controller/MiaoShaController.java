@@ -113,6 +113,7 @@ public class MiaoShaController implements InitializingBean {
     }
 
     /**
+     * 1800/sec
      *ajax调用
      * @param model
      * @param user
@@ -147,6 +148,8 @@ public class MiaoShaController implements InitializingBean {
     }
 
     /**
+     * 5000 * 10  2651.3/sec
+     * 4核，2G
      * 使用消息队列
      * @param model
      * @param user
